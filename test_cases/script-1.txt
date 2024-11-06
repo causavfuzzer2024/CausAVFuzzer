@@ -1,0 +1,234 @@
+///////////////////////////////////////////////////////////
+// intersection with two double direction roads
+map_name = "san_francisco";
+time = 12:00;
+weather = {rain:0.4, snow: 0.4, wetness: 0.4};
+evn = Environment(time, weather);
+
+// ev: move from lane_573, lane_1556, lane_2, lane_1136, lane_282, lane_1150, to lane_285
+car_model = "gt_sensors";
+ego_init_position ="lane_573"->76;
+ego_init_state = (ego_init_position);
+ego_target_position = "lane_285"->36;
+ego_target_state = (ego_target_position);
+vehicle_type = (car_model);
+ego_vehicle = AV(ego_init_state, ego_target_state, vehicle_type);
+
+
+
+// NPCs
+
+// npc1: static in lane_572 initially, move from lane_572, lane_3, lane_282, to lane_284
+npc1_init_position =  "lane_572"->106;
+npc1_init_state = (npc1_init_position, , 0.1);
+npc1_dest_state = ("lane_284"->70);
+npc1_state = (("lane_572"->108, , 1),
+              ("lane_572"->156, , 3),
+              ("lane_3"->0, , 6),
+              ("lane_3"->19, , 4),
+              ("lane_282"->0, , 7),
+              ("lane_282"->69, , 3),
+              ("lane_284"->0, , 5));
+npc1 = Vehicle(npc1_init_state, Waypoint(npc1_state), npc1_dest_state);
+
+// npc2: static in lane_574
+npc2_init_position =  "lane_574"->56;
+npc2_init_state = (npc2_init_position, , 0);
+npc2_dest_state = ("lane_574"->56);
+npc2 = Vehicle(npc2_init_state,  , npc2_dest_state);
+
+
+// npc3: static in lane_572
+npc3_init_position =  "lane_572"->91;
+npc3_init_state = (npc3_init_position, , 0);
+npc3_dest_state = ("lane_572"->91);
+npc3 = Vehicle(npc3_init_state,  , npc3_dest_state);
+
+
+// npc4: move from lane_586, lane_1560, lane_2, lane_1140, to lane_277
+npc4_init_position = "lane_586"->10;
+npc4_init_state = (npc4_init_position, , 2);
+npc4_dest_state = ("lane_277"->30);
+npc4_state = (("lane_586"->49, , 4),
+              ("lane_1560"->0, , 3),
+              ("lane_1560"->52, , 2),
+              ("lane_2"->0, , 4),
+              ("lane_2"->21, , 3),
+              ("lane_1140"->0, , 3),
+              ("lane_1140"->28.9, , 4),
+              ("lane_277"->0.0, , 6));
+npc4_model = "Sedan";
+npc4_type = (npc4_model);
+npc4 = Vehicle(npc4_init_state, Waypoint(npc4_state), npc4_dest_state, npc4_type);
+
+
+// npc5: move from lane_587, lane_1562, to lane_591
+npc5_init_position =  "lane_587"->40;
+npc5_init_state = (npc5_init_position, ,8);
+npc5_dest_state = ("lane_591"->30);
+npc5 = Vehicle(npc5_init_state,  , npc5_dest_state);
+
+
+// npc6: move from lane_588, lane_1549, lane_3, lane_2, lane1140, to lane 277
+npc6_init_position = "lane_588"->10;
+npc6_init_state = (npc6_init_position, , 4);
+npc6_dest_state = ("lane_77"->20);
+npc6_state = (("lane_588"->56, , 4),
+              ("lane_1549"->0.0, , 4),
+              ("lane_1549"->27.7, , 4),
+              ("lane_3"->0.0, , 6),
+              ("lane_3"->15, , 7),
+              ("lane_2"->21, , 6),
+              ("lane_1140"->0, , 5),
+              ("lane_1140"->28.9, , 5),
+              ("lane_277"->0.0, , 5));
+npc6 = Vehicle(npc6_init_state, Waypoint(npc6_state), npc6_dest_state);
+
+
+//npc7: move from lane_286, lane_1149, lane_281, lane_1138, to lane_1
+npc7_init_position =  "lane_286"->40;
+npc7_init_state = (npc7_init_position, , 10);
+npc7_dest_state = ("lane_1"->12);
+npc7_state = (("lane_1149"->0.0, , 9),
+              ("lane_281"->0.0, , 11),
+              ("lane_1138"->0.0, , 8), 
+              ("lane_1"->0.0, , 10));
+npc7 = Vehicle(npc7_init_state, Waypoint(npc7_state), npc7_dest_state);
+
+
+//npc8: move from lane_279, lane_1133, lane_283, lane_282, to lane_284
+npc8_init_position = "lane_279"->40;
+npc8_init_state = (npc8_init_position, , 4);
+npc8_dest_state = ("lane_284"->70);
+npc8_state = (("lane_279"->67.9, , 8),
+              ("lane_1133"->0.0, , 9),
+              ("lane_1133"->45.7, , 7), 
+              ("lane_283"->0.0, , 5),
+              ("lane_283"->15, , 7),
+              ("lane_282"->30, , 8), 
+              ("lane_282"->69, , 8), 
+              ("lane_284"->0.0, , 10));
+npc8 = Vehicle(npc8_init_state, Waypoint(npc8_state), npc8_dest_state);
+
+
+// Pedestrians
+
+// pedestrian 1
+ped1_position = (592985.56, 4135019.07);
+ped1_heading = 180 deg related to "lane_3"->0;
+ped1_init_state= (ped1_position, ped1_heading, 0.5);
+ped1_state_list = (((592985.56, 4135019.07), ped1_heading, 0.5),((592980.20, 4135002.45), ped1_heading, 0.5));
+ped1_motion = Waypoint(ped1_state_list);
+ped1 = Pedestrian(ped1_init_state, ped1_motion);
+
+ped2_position = (592959.35, 4135032.64);
+ped2_heading = 0 deg related to "lane_587"->0;
+ped2_init_state= (ped2_position, ped2_heading, 0.8);
+ped2_state_list = (((592959.35, 4135032.64), ped2_heading, 0.8),((592970.78, 4135056.50), ped2_heading, 0.8));
+ped2_motion = Waypoint(ped2_state_list);
+ped2 = Pedestrian(ped2_init_state, ped2_motion);
+
+
+
+// Static obstacles
+
+// static obstalce 1: a ball near lane 572
+obs1_position = (593030.25, 4134962.12);
+obs1_type = (sphere, 0.11);
+obs1 = Obstacle(obs1_position, obs1_type);
+
+// static obstalce 2: a box near lane 574
+obs2_position = (592997.94, 4134999.97);
+obs2_type = (box, 0.3, 0.5, 0.4);
+obs2 = Obstacle(obs2_position, obs2_type);
+
+// static obstalce 1: a box near lane 585
+obs3_position = (592952.12, 4135216.91);
+obs3_type = (box, 0.8, 0.8, 0.8);
+obs3 = Obstacle(obs3_position, obs3_type);
+
+
+
+scenario0 = CreateScenario{load(map_name);
+			        ego_vehicle;
+			        {npc1, npc2, npc3, npc4, npc5, npc6, npc7, npc8};
+			        {ped1, ped2}; // pedestrians;
+			        {obs1, obs2, obs3}; // obstacles;
+			        evn;
+};
+
+Trace trace = EXE(scenario0);
+
+
+///////////////////////////////////////////////////////////
+// Specifications
+
+// Law 38
+//Green Lights
+law38_sub1_1 = (trafficLightAhead.color == green) & (stoplineAhead(2) | junctionAhead(2)) & ~PriorityNPCAhead & ~PriorityPedsAhead;
+law38_sub1_2 = F[0,2](speed > 0.5);
+law38_sub1 = G (law38_sub1_1 -> law38_sub1_2); 
+//Yellow Lights
+law38_sub2_1 = ((trafficLightAhead.color == yellow) & (stoplineAhead(0) | currentLane.number .+ 1 == 0)) -> (F[0,2] (speed > 0.5));
+law38_sub2_2 = ((trafficLightAhead.color == yellow) & stoplineAhead(3.5) & ~stoplineAhead(0.5) & currentLane.number > 0) -> (F[0,3] (speed < 0.5));
+law38_sub2 = G (law38_sub2_1 & law38_sub2_2); 
+//Red LightS
+law38_sub3_1 = ((trafficLightAhead.color == red) & (stoplineAhead(2) | junctionAhead(2)) & ~(direction == right)) -> (F[0,3] (speed < 0.5));
+law38_sub3_2 = ((trafficLightAhead.color == red) & (stoplineAhead(2) | junctionAhead(2)) & direction == right & ~PriorityNPCAhead & ~PriorityPedsAhead) -> (F[0,2] (speed > 0.5));
+law38_sub3 = G (law38_sub3_1 & law38_sub3_2); 
+law38 = law38_sub1 & law38_sub2 & law38_sub3;
+
+// Law 44
+law44_sub1 = currentLane.number >= 2;
+law44_sub2 = (speed >= speedLimit.lowerLimit) & (speed <= speedLimit.upperLimit);
+law44_sub3 = isLaneChanging & currentLane.number >= 2;
+law44_sub4 = G(law44_sub1 -> law44_sub2);
+law44_sub5 = G(law44_sub3 -> ~PriorityNPCAhead);
+law44 = law44_sub4 & law44_sub5;
+
+// Law 45
+law45 = G( speed >= speedLimit.lowerLimit & speed <= speedLimit.upperLimit);
+
+// Law 47 
+law47_sub1 = (turnSignal == left) & ((F[-1,2](hornOn)) | ((highBeamOn & (highBeamOn -> (F[0, 2](lowBeamOn)) ) ) | (lowBeamOn & (lowBeamOn -> (F[0, 2](highBeamOn)) ) ))) & (F[0, 10]( (turnSignal == right) & (((isLaneChanging) -> (NearestNPC(5))) & (isLaneChanging) ) ));
+law47 = G(isOverTaking -> law47_sub1);
+
+// Law 50
+law50 = G(~(gear == 2)); 
+
+// Law 51
+//turn_left
+law51_sub3_1 =(trafficLightAhead.color == green & direction == left & Time <= 20:00 & Time >= 7:00) -> (turnSignal == left);
+law51_sub3_2 =(trafficLightAhead.color == green & direction == left & (Time >= 20:00 | Time <= 7:00)) -> (turnSignal == left & lowBeamOn);
+law51_sub3 = G(law51_sub3_1 & law51_sub3_2);  
+//go_in_line_at_green
+law51_sub4_1 = trafficLightAhead.color == green & (~NPCAhead(8) | (( NPCAhead(8) -> F[0,2](NPCAhead.speed > 0.5)  ) & NPCAhead(8)));
+law51_sub4_2 = (F[0, 3](speed > 0.5)) & ~NPCAhead(0.5);
+law51_sub4 = G(law51_sub4_1 -> law51_sub4_2);
+//stop_in_line_at_red
+law51_sub5_1 = trafficLightAhead.color == red & (stoplineAhead(2) | junctionAhead(2) | NPCAhead(0.5));
+law51_sub5_2 = F[0, 2](speed < 0.5);
+law51_sub5 = G(law51_sub5_1 -> law51_sub5_2);  
+//tuen_right_stop_in_line_at_red
+law51_sub6 = G((direction == right & NPCAhead(2) & (F[0, 2](NPCAhead.speed < 0.5)) ) -> F[0, 3] (speed < 0.5));
+//priority_for_straight
+law51_sub7 = G(((direction == right | direction == left) & (PriorityNPCAhead | PriorityPedsAhead)) -> F[0, 2] (speed < 0.5));
+law51 = law51_sub3 & law51_sub4 & law51_sub5 & law51_sub6 & law51_sub7;
+
+// Law 52
+law52 = G((signalAhead == 0 & (PriorityNPCAhead | PriorityPedsAhead) & junctionAhead(1)) -> F[0, 2] (speed < 0.5));
+
+// Law 53
+law53 = G((isTrafficJam & (NPCAhead.speed < 0.5 | NPCAhead(0.5) | junctionAhead(1) ))-> F[0, 2] (speed < 0.5));
+
+// Law 57
+law57_sub1 = G(direction == left ->  turnSignal == left);
+law57_sub2 = G(direction == right ->  turnSignal == right);
+law57 = law57_sub1 & law57_sub2;
+
+// Law 59
+law59_sub1 = (crosswalkAhead(5) | (signalAhead == 0 & junctionAhead(1)) ) & (Time >= 20:00 | Time <= 7:00);
+law59_sub2 = F[0,3](highBeamOn & (highBeamOn -> F[0,3](lowBeamOn)) ) | F[0,3](lowBeamOn & (lowBeamOn -> F[0,3](highBeamOn)) );
+law59 = G(law59_sub1 ->  law59_sub2);
+
+trace |= law38 & law44 & law45 & law47 & law50 & law51 & law52 & law53 & law57 & law59;
