@@ -8,14 +8,11 @@ def predictor_assigning(features):
         # predictors[npc] = ''
         predictors[npc] = ''
         if 'IGNORE' == priority_curr:
-            predictors[npc] = 'EMPTY_PREDICTOR'
+            predictors[npc] = 'NONE_PREDICTOR'
         elif is_static:
-            predictors[npc] = 'EMPTY_PREDICTOR'
+            predictors[npc] = 'NONE_PREDICTOR'
         else:
             if 'VEHICLE' == type_curr:
-                if 'INTERACTION' == tag_curr:
-                    predictors[npc] = 'EMPTY_PREDICTOR'
-                    continue  # Predict
                 if 'CAUTION' == priority_curr:
                     if 'JUNCTION' == area_curr:
                         predictors[npc] = 'INTERACTION_PREDICTOR'

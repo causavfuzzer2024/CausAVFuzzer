@@ -6,22 +6,16 @@ def evaluator_assigning(features):
             features[npc]['speed'], features[npc]['priority'], features[npc]['tag']
         # evaluators[npc] = 'skip_evaluating'
         if 'VEHICLE' == type_curr:
-            if 'CAUTION' == priority_curr and speed_curr >= 2.0:
-                if 'INTERACTION' == tag_curr:
-                    evaluators[npc] = 'JOINTLY_PREDICTION_PLANNING_EVALUATOR'
-                elif 'JUNCTION' == area_curr:
-                    evaluators[npc] = 'JUNCTION_MAP_EVALUATOR'
-                elif 'ON_LANE' == area_curr:
+            if 'ON_LANE' == area_curr:
+                if 'CAUTION' == priority_curr:
                     evaluators[npc] = 'CRUISE_MLP_EVALUATOR'
                 else:
-                    evaluators[npc] = 'SEMANTIC_LSTM_EVALUATOR'
-                continue  # Evaluate
+                    evaluators[npc] = 'CRUISE_MLP_EVALUATOR'
             if 'JUNCTION' == area_curr:
-                evaluators[npc] = 'JUNCTION_MLP_EVALUATOR'
-            elif 'ON_LANE' == area_curr:
-                evaluators[npc] = 'CRUISE_MLP_EVALUATOR'
-            else:
-                evaluators[npc] = 'NONE_EVALUATOR'
+                if 'CAUTION' == priority_curr:
+                    evaluators[npc] = 'JUNCTION_MAP_EVALUATOR'
+                else:
+                    evaluators[npc] = 'JUNCTION_MLP_EVALUATOR'
             continue  # Evaluate
         elif 'BICYCLE' == type_curr:
             if 'ON_LANE' == area_curr:
